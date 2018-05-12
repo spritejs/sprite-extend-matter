@@ -563,14 +563,22 @@ Render.bodies = function (render, bodies, context) {
     // handle compound parts
     for(let k = body.parts.length > 1 ? 1 : 0; k < body.parts.length; k++) {
       part = body.parts[k]
+      const {position, angle} = part
+      const pos = [
+          Math.round(position.x * 10) / 10,
+          Math.round(position.y * 10) / 10,
+        ],
+        rotate = Math.round(180 * angle * 10 / Math.PI) / 10
 
       if(!part.render.visible) {
         continue
-      } let s = part.spriteNode
+      }
+
+      let s = part.spriteNode
       if(s) {
         s.attr({
-          pos: [part.position.x, part.position.y],
-          rotate: 180 * part.angle / Math.PI,
+          pos,
+          rotate,
         })
       } else if(part.render.sprite && (part.render.sprite.texture || part.render.sprite.attrs && part.render.sprite.attrs.textures)) {
         // part sprite
@@ -582,8 +590,8 @@ Render.bodies = function (render, bodies, context) {
         s.attr({
           anchor: [sprite.xOffset, sprite.yOffset],
           scale: [sprite.xScale, sprite.yScale],
-          pos: [part.position.x, part.position.y],
-          rotate: 180 * part.angle / Math.PI,
+          pos,
+          rotate,
         })
         if(texture) {
           s.attr({
@@ -599,14 +607,14 @@ Render.bodies = function (render, bodies, context) {
           anchor: 0.5,
           size: [2 * part.circleRadius, 2 * part.circleRadius],
           borderRadius: part.circleRadius,
-          pos: [part.position.x, part.position.y],
-          rotate: 180 * part.angle / Math.PI,
+          pos,
+          rotate,
           bgcolor: part.render.fillStyle,
         })
         part.spriteNode = s
         layer.append(s)
       } else {
-        const {vertices, angle} = part
+        const {vertices} = part
         const {x: x0, y: y0} = vertices[0]
 
         let d = `M${x0},${y0}`
@@ -620,8 +628,8 @@ Render.bodies = function (render, bodies, context) {
         s.attr({
           anchor: 0.5,
           path: {d, trim: true},
-          pos: [part.position.x, part.position.y],
-          rotate: 180 * angle / Math.PI,
+          pos,
+          rotate,
           fillColor: part.render.fillStyle,
         })
         part.spriteNode = s
@@ -673,14 +681,21 @@ Render.bodyWireframes = function (render, bodies, context) {
     // handle compound parts
     for(let k = body.parts.length > 1 ? 1 : 0; k < body.parts.length; k++) {
       part = body.parts[k]
+      const {position, angle} = part
+      const pos = [
+          Math.round(position.x * 10) / 10,
+          Math.round(position.y * 10) / 10,
+        ],
+        rotate = Math.round(180 * angle * 10 / Math.PI) / 10
+
       let s = part.spriteNode
       if(s) {
         s.attr({
-          pos: [part.position.x, part.position.y],
-          rotate: 180 * part.angle / Math.PI,
+          pos,
+          rotate,
         })
       } else {
-        let {vertices, angle} = part
+        let {vertices} = part
         const {x: x0, y: y0} = vertices[0]
 
         if(!showInternalEdges) {
@@ -698,8 +713,8 @@ Render.bodyWireframes = function (render, bodies, context) {
         s.attr({
           anchor: 0.5,
           path: {d, trim: true},
-          pos: [part.position.x, part.position.y],
-          rotate: 180 * angle / Math.PI,
+          pos,
+          rotate,
           strokeColor: '#bbb',
         })
         part.spriteNode = s
@@ -738,6 +753,12 @@ Render.bodyConvexHulls = function (render, bodies, context) {
   // render convex hulls
   for(let i = 0; i < bodies.length; i++) {
     body = bodies[i]
+    const {position, angle} = body
+    const pos = [
+        Math.round(position.x * 10) / 10,
+        Math.round(position.y * 10) / 10,
+      ],
+      rotate = Math.round(180 * angle * 10 / Math.PI) / 10
 
     if(!body.render.visible || body.parts.length === 1) {
       continue
@@ -745,11 +766,11 @@ Render.bodyConvexHulls = function (render, bodies, context) {
     let s = body.spriteNode
     if(s) {
       s.attr({
-        pos: [body.position.x, body.position.y],
-        rotate: 180 * body.angle / Math.PI,
+        pos,
+        rotate,
       })
     } else {
-      const {vertices, angle} = body
+      const {vertices} = body
       const {x: x0, y: y0} = vertices[0]
       let d = 'M0,0'
       for(let j = 1; j < vertices.length; j++) {
@@ -762,8 +783,8 @@ Render.bodyConvexHulls = function (render, bodies, context) {
       s.attr({
         anchor: 0.5,
         path: {d, trim: true},
-        pos: [body.position.x, body.position.y],
-        rotate: 180 * angle / Math.PI,
+        pos,
+        rotate,
         strokeColor: 'rgba(255,255,255,0.2)',
       })
       body.spriteNode = s

@@ -3,15 +3,15 @@
 This is a spritejs extension based on [matter-js](https://github.com/liabru/matter-js/).
 
 ```html
-<script src="https://s5.ssl.qhres.com/!1bfee6b1/sprite-extend-matter.js"></script>
+<script src="https://s5.ssl.qhres.com/!a75e6d57/sprite-extend-matter.js"></script>
 ```
 
 ## Quick Start
 
 ```html
 <div id="container"></div>
-<script src="https://s5.ssl.qhres.com/!1bfee6b1/sprite-extend-matter.js"></script>
-<script src="https://s5.ssl.qhres.com/!1bfee6b1/sprite-extend-matter.js"></script>
+<script src="https://s5.ssl.qhres.com/!a75e6d57/sprite-extend-matter.js"></script>
+<script src="https://s5.ssl.qhres.com/!a75e6d57/sprite-extend-matter.js"></script>
 <script>
   const Matter = spritejs.Matter;
   const {Scene, Path} = spritejs;
