@@ -301,7 +301,7 @@ Render.world = function (render) {
     bodies = allBodies
   }
 
-  if(!options.wireframes || (engine.enableSleeping && options.showSleeping)) {
+  if(!options.wireframes) {
     // fully featured rendering of bodies
     Render.bodies(render, bodies, context)
   } else {
@@ -608,6 +608,7 @@ Render.bodies = function (render, bodies, context) {
       } else {
         const {vertices, angle} = part
         const {x: x0, y: y0} = vertices[0]
+
         let d = `M${x0},${y0}`
         for(let j = 1; j < vertices.length; j++) {
           const x = vertices[j].x,
@@ -654,7 +655,9 @@ Render.bodies = function (render, bodies, context) {
  */
 Render.bodyWireframes = function (render, bodies, context) {
   const c = context,
-    layer = render.layer
+    layer = render.layer,
+    options = render.options,
+    showInternalEdges = render.options.showInternalEdges
 
   let body,
     part
@@ -677,12 +680,17 @@ Render.bodyWireframes = function (render, bodies, context) {
           rotate: 180 * part.angle / Math.PI,
         })
       } else {
-        const {vertices, angle} = part
+        let {vertices, angle} = part
         const {x: x0, y: y0} = vertices[0]
-        let d = 'M0,0'
+
+        if(!showInternalEdges) {
+          vertices = vertices.filter(v => !v.isInternal)
+        }
+
+        let d = `M${x0},${y0}`
         for(let j = 1; j < vertices.length; j++) {
-          const x = vertices[j].x - x0,
-            y = vertices[j].y - y0
+          const x = vertices[j].x,
+            y = vertices[j].y
           d += `L${x},${y}`
         }
         d += 'z'
@@ -696,6 +704,16 @@ Render.bodyWireframes = function (render, bodies, context) {
         })
         part.spriteNode = s
         layer.append(s)
+      }
+      if(options.showSleeping && body.isSleeping) {
+        if(!part.fullOpacity) {
+          const opacity = s.attr('opacity')
+          s.attr('opacity', 0.5 * opacity)
+          part.fullOpacity = opacity
+        }
+      } else if(part.fullOpacity) {
+        s.attr('opacity', part.fullOpacity)
+        delete part.fullOpacity
       }
     }
   }
