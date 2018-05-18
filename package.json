@@ -1,6 +1,6 @@
 {
   "name": "sprite-extend-matter",
-  "version": "0.3.1",
+  "version": "0.3.0",
   "description": "matter.js renderer for spritejs",
   "main": "lib/index.js",
   "scripts": {
