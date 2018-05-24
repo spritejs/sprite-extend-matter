@@ -2,7 +2,8 @@ module.exports = {
   globals: {
 
   },
-  "extends":  "eslint-config-75team",
+  extends:  "eslint-config-75team",
+  plugins: ["html"],
   rules: {
     // 'import/no-mutable-exports': 'off',
     'semi-style': ["error", "first"],

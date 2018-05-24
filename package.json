@@ -22,6 +22,7 @@
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.19.1",
     "eslint-config-75team": "^1.0.22",
+    "eslint-plugin-html": "^4.0.3",
     "sprite-core": "^1.19.1",
     "webpack": "^4.8.1",
     "webpack-cli": "^2.1.3",
