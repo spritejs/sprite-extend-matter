@@ -1,8 +1,14 @@
-// for webpack build
-import Matter from 'matter-js'
-import Render from './render'
+import Matter from './matter';
 
-Matter.CanvasRender = Matter.Render
-Matter.Render = Render
+// auto use
+if(typeof window !== 'undefined' && window.spritejs) {
+  window.spritejs.use(install);
+}
 
-module.exports = Matter
+export function install({use}) {
+  return [
+    Matter,
+  ].reduce((pkg, Node) => {
+    return Object.assign(pkg, use(Node));
+  }, {});
+}

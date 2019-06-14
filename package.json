@@ -1,6 +1,6 @@
 {
   "name": "sprite-extend-matter",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "matter.js renderer for spritejs",
   "main": "lib/index.js",
   "scripts": {
@@ -22,6 +22,7 @@
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.19.1",
     "eslint-config-75team": "^1.0.22",
+    "eslint-config-sprite": "^1.0.6",
     "eslint-plugin-html": "^4.0.3",
     "sprite-core": "^1.19.1",
     "webpack": "^4.8.1",

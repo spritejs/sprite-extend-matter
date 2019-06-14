@@ -1,18 +1,18 @@
-const path = require('path')
-const fs = require('fs')
+const path = require('path');
+const fs = require('fs');
 
-let babelConf
+let babelConf;
 if(fs.existsSync('./.babelrc')) {
   // use babel
-  babelConf = JSON.parse(fs.readFileSync('.babelrc'))
+  babelConf = JSON.parse(fs.readFileSync('.babelrc'));
 }
 
 module.exports = function (env = {}) {
-  const externals = {}
-  let filename = 'sprite-extend-matter.standalone.js'
+  const externals = {};
+  let filename = 'sprite-extend-matter.standalone.js';
   if(!env.standalone) {
-    externals['sprite-core'] = 'spritejs'
-    filename = 'sprite-extend-matter.js'
+    externals['sprite-core'] = 'spritejs';
+    filename = 'sprite-extend-matter.js';
   }
 
   return {
@@ -22,7 +22,7 @@ module.exports = function (env = {}) {
       path: path.resolve(__dirname, 'dist'),
       filename,
       publicPath: '/js/',
-      library: ['spritejs', 'Matter'],
+      library: ['spriteMatter'],
       libraryTarget: 'umd',
     },
     // resolve: {
@@ -64,5 +64,5 @@ module.exports = function (env = {}) {
 
 
     /* Advanced configuration (click to show) */
-  }
-}
+  };
+};
